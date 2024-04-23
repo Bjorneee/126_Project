@@ -1,20 +1,25 @@
 #include <iostream>
 #include <set>
 #include <map>
-// #include "burger.h"
-#include "burger.cpp"
-// #include "\lib\burger.h"
+#include "burger.h"
+
 using namespace std;
+
 //temp calls
 void playGame() {
+
+    cout << "Playing the game\n"<< endl;
+
     // Functionality for playing the game
-    cout << "Playing the game\n"<<endl;
     srand(time(nullptr));
+
     int random = rand() % 10 + 1;
     Burger burger(random);
+
     burger.display();
 
 }
+
 //temp calls
 void newGame() {
     // Functionality for starting a new game
@@ -25,7 +30,7 @@ int main() {
     int choice;
     do {
         // Display menu options
-        cout << "=== Game Menu ===\n";
+        cout << "\n=== Game Menu ===\n";
         cout << "1. Play Game\n";
         cout << "2. New Game\n";
         cout << "3. Exit\n";
