@@ -1,6 +1,5 @@
 #include <iostream>
-#include <set>
-#include <map>
+#include <stdlib.h>
 #include "burger.h"
 
 using namespace std;
@@ -8,20 +7,25 @@ using namespace std;
 //temp calls
 void playGame() {
 
+    //system("cls"); // Clear terminal for every new game. Buggy in vscode terminal. Works when you run the .exe
+
     cout << "Playing the game\n"<< endl;
 
     // Functionality for playing the game
     srand(time(nullptr));
 
     int random = rand() % 10 + 1;
-    Burger burger(random);
+    Burger order(random);
 
-    burger.display();
+    order.display();
 
 }
 
 //temp calls
 void newGame() {
+
+    //system("cls");
+
     // Functionality for starting a new game
     cout << "Starting a new game...\n";
 }

@@ -15,6 +15,18 @@ Burger::Burger(int size) {
     items.push(1); // All burgers end with a top bun
 }
 
+Burger::Burger(stack<int>& burgerStack) {
+
+    initialize_ingredients();
+
+    items.push(0);
+    while(!burgerStack.empty()){
+        items.push(burgerStack.top());
+    }
+    items.push(1);
+
+}
+
 // Map ingredients to specific id's.
 void Burger::initialize_ingredients() {
 
@@ -44,4 +56,9 @@ void Burger::display() {
         std::cout << temp.top() << " | " << ingredients[temp.top()] << std::endl;
         temp.pop();
     }
+}
+
+bool operator==(const Burger& comp1, const Burger& comp2) {
+
+    return comp1.items == comp2.items;
 }

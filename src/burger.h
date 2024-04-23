@@ -21,7 +21,12 @@ class Burger {
 public:
 
     Burger(int size);
+
+    Burger(stack<int>& burgerStack);
+    
     void display();
+
+    friend bool operator==(const Burger& comp1, const Burger& comp2);
 
 };
 
