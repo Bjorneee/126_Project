@@ -1,35 +1,64 @@
 #include "burger.h"
-#include <cstdlib> 
-#include <iostream>
-#include <ctime>   
-#include <map>
-using namespace std;
+
 Burger::Burger(int size) {
+
+    // Setup ingredients map
+    initialize_ingredients();
+
     // Initialize random seed
     srand(time(nullptr));
-    items.push_back(0);
-    for (int i = 0; i < size-2; ++i) {
-        items.push_back(rand() % 10); //check if the raindom is correct
+
+    items.push(0); // All burgers start with a bottom bun
+    for (int i = 0; i < size; i++) {
+        items.push((rand() % 7) + 2); // Push random ingredient ids into the stack
     }
-    items.push_back(0);
+    items.push(1); // All burgers end with a top bun
+}
+
+Burger::Burger(stack<int>& burgerStack) {
+
+    initialize_ingredients();
+
+    items.push(0);
+    while(!burgerStack.empty()){
+        items.push(burgerStack.top());
+    }
+    items.push(1);
+
+}
+
+// Map ingredients to specific id's.
+void Burger::initialize_ingredients() {
+
+    this->ingredients = {
+
+        {0, "bottom_bun"},
+        {1, "top_bun"},
+        {2, "patty"},
+        {3, "cheese"},
+        {4, "lettuce"},
+        {5, "tomato"},
+        {6, "onion"},
+        {7, "pickle"},
+        {8, "sauce"}
+
+    };
 }
 
 void Burger::display() {
-    map<int, string> ingredients = {
-    {0, "Bun"},
-    {1, "Tomato"},
-    {2, "Onion"},
-    {3, "Cheese"},
-    {4, "Bacon"},
-    {5, "Pickles"},
-    {6, "Ketchup"},
-    {7, "Mustard"},
-    {8, "Patty"},
-    {9, "Lettuce"}
-};
-    cout << "Burger Items:"<<endl;
-    for (int i = 0; i < items.size(); ++i) {
-        cout << ingredients[items[i]] << endl;
+    
+    // Setup text file with ascii art for each item
+    // Go through ids in stack and print each item from ascii art file
+
+    // Temp display code
+    stack<int> temp = this->items;
+    while(!temp.empty()){
+        std::cout << temp.top() << " | " << ingredients[temp.top()] << std::endl;
+        temp.pop();
     }
-    cout << endl;
+}
+
+bool operator==(const Burger& comp1, const Burger& comp2) {
+
+    return comp1.items == comp2.items;
 }

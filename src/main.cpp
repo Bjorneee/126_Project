@@ -1,22 +1,31 @@
 #include <iostream>
-#include <set>
-#include <map>
-// #include "burger.h"
-#include "burger.cpp"
-// #include "\lib\burger.h"
+#include <stdlib.h>
+#include "burger.h"
+
 using namespace std;
+
 //temp calls
 void playGame() {
+
+    //system("cls"); // Clear terminal for every new game. Buggy in vscode terminal. Works when you run the .exe
+
+    cout << "Playing the game\n"<< endl;
+
     // Functionality for playing the game
-    cout << "Playing the game\n"<<endl;
     srand(time(nullptr));
+
     int random = rand() % 10 + 1;
-    Burger burger(random);
-    burger.display();
+    Burger order(random);
+
+    order.display();
 
 }
+
 //temp calls
 void newGame() {
+
+    //system("cls");
+
     // Functionality for starting a new game
     cout << "Starting a new game...\n";
 }
@@ -25,7 +34,7 @@ int main() {
     int choice;
     do {
         // Display menu options
-        cout << "=== Game Menu ===\n";
+        cout << "\n=== Game Menu ===\n";
         cout << "1. Play Game\n";
         cout << "2. New Game\n";
         cout << "3. Exit\n";
