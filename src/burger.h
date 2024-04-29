@@ -7,25 +7,22 @@ using namespace std;
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <stack>
 #include <map>
-#include <string>
+#include <stack>
+
 
 class Burger {
 
     stack<int> items;
-    map<int, string> ingredients;
-
-    void initialize_ingredients();
 
 public:
 
     Burger(int size);
 
     Burger(stack<int>& burgerStack);
-    
-    void display();
 
+    void display(map<int, string>& ingredients);
+    
     friend bool operator==(const Burger& comp1, const Burger& comp2);
 
 };

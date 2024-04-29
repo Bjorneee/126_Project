@@ -1,8 +1,24 @@
 #include <iostream>
 #include <stdlib.h>
+#include <map>
 #include "burger.h"
 
 using namespace std;
+
+map<int, string> ingredients;
+
+// initialize game assets
+void initialize() {
+
+    ingredients = { {0, "bottom_bun"},
+                    {1, "top_bun"},
+                    {2, "patty"},
+                    {3, "cheese"},
+                    {4, "lettuce"},
+                    {5, "onion"},
+                    {6, "pickle"},
+                    {7, "tomato"}};
+}
 
 //temp calls
 void playGame() {
@@ -17,7 +33,7 @@ void playGame() {
     int random = rand() % 10 + 1;
     Burger order(random);
 
-    order.display();
+    order.display(ingredients);
 
 }
 
@@ -31,6 +47,9 @@ void newGame() {
 }
 
 int main() {
+
+    initialize();
+
     int choice;
     do {
         // Display menu options
