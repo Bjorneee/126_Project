@@ -13,7 +13,12 @@ using namespace std;
 
 class Burger {
 
-    stack<int> items;
+    stack<int> items;//burger items
+    stack<int> user_burger;
+    map<int, string> ingredients;
+
+
+    void initialize_ingredients();
 
 public:
 
@@ -24,6 +29,8 @@ public:
     void display(map<int, string>& ingredients);
     
     friend bool operator==(const Burger& comp1, const Burger& comp2);
+    
+    bool order_Issame() const;
 
 };
 

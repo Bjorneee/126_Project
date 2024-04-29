@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <map>
 #include "burger.h"
-
+#include "burger.cpp" //leave this here or my compiler breaks
 using namespace std;
 
 map<int, string> ingredients;
@@ -24,14 +24,12 @@ void initialize() {
 void playGame() {
 
     //system("cls"); // Clear terminal for every new game. Buggy in vscode terminal. Works when you run the .exe
-
     cout << "Playing the game\n"<< endl;
-
     // Functionality for playing the game
+    
     srand(time(nullptr));
-
-    int random = rand() % 10 + 1;
-    Burger order(random);
+    int random_burgersize = rand() % 10 + 1;
+    Burger order(random_burgersize);
 
     order.display(ingredients);
 
@@ -55,7 +53,7 @@ int main() {
         // Display menu options
         cout << "\n=== Game Menu ===\n";
         cout << "1. Play Game\n";
-        cout << "2. New Game\n";
+        cout << "2. New Game\n";//should adjust the game idk (not sure if needed)
         cout << "3. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
