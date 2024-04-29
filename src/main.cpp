@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <map>
 #include "burger.h"
-#include "burger.cpp" //leave this here or my compiler breaks
+//#include "burger.cpp" //leave this here or my compiler breaks
 using namespace std;
 
 map<int, string> ingredients;

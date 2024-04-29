@@ -1,15 +1,16 @@
 #ifndef BURGER_H
 #define BURGER_H
 
-using namespace std;
-
 //#include <vector>
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 #include <map>
 #include <stack>
+#include <string>
 
+using namespace std;
 
 class Burger {
 

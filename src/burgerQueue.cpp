@@ -17,7 +17,7 @@ burgerQueue::burgerQueue(std::map<int, std::string>& i_map) {
 
 burgerQueue::~burgerQueue() {
 
-    if(!empty){
+    if(!empty()){
         Node* it = front;
         while(it != back){
             Node* temp = it->next;
@@ -46,4 +46,9 @@ void burgerQueue::push(const int n_val) {
 void burgerQueue::pop() {
 
     back = back->prev;
+}
+
+bool burgerQueue::empty() const {
+
+    return false;
 }

@@ -24,10 +24,28 @@ Burger::Burger(stack<int>& burgerStack) {
 
 void Burger::display(map<int, string>& ingredient_map){
 
+    ifstream ifs;
+
     stack<int> temp = items;
     while(!temp.empty()){
-        std::cout << ingredient_map[temp.top()] << std::endl;
+        
+        ifs.open("..\\asciiburger.txt");
+        if(ifs.fail()){
+            std::cout << "\nFile open error." << std::endl;
+            exit(-1);
+        }
+
+        string input;
+
+        do{
+            getline(ifs, input, '\n');
+        } while(input != ingredient_map[temp.top()] && !ifs.eof());
+
+        getline(ifs, input, '$');
+
+        std::cout << input << std::endl;;
         temp.pop();
+        ifs.close();
     }
 }
 
