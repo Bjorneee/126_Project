@@ -38,7 +38,7 @@ void playGame() {
 //temp calls
 void newGame() {
 
-    //system("cls");
+    system("cls");
 
     // Functionality for starting a new game
     cout << "Starting a new game...\n";
