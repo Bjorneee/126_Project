@@ -1,6 +1,8 @@
 #ifndef BURGERQUEUE_H
 #define BURGERQUEUE_H
 
+#include <ctime>
+#include <cstdlib>
 #include <map>
 #include <string>
 
@@ -10,7 +12,6 @@ class burgerQueue {
 
         int val;
         Node* next;
-        Node* prev;
 
         Node(const int& n_val);
 
@@ -19,7 +20,6 @@ class burgerQueue {
     std::map<int, std::string> ingredient_map;
 
     Node* front;
-    Node* back;
 
     void push(const int val);
     void pop();
@@ -34,8 +34,6 @@ public:
     void display() const;
 
     void scroll_to_next();
-
-    void scroll_to_prev();
 
 };
 
