@@ -31,8 +31,11 @@ void Burger::display(map<int, string>& ingredient_map){
         
         ifs.open("..\\asciiburger.txt");
         if(ifs.fail()){
-            std::cout << "\nFile open error." << std::endl;
-            exit(-1);
+            ifs.open("asciiburger.txt");
+            if(ifs.fail()){
+                std::cout << "\nFile open error." << std::endl;
+                exit(-1);
+            }
         }
 
         string input;
