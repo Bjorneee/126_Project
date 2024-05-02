@@ -3,6 +3,8 @@
 #include <map>
 #include <fstream>
 #include <sstream>
+#include <string>
+#include <unordered_map>
 #include "burger.h"
 #include "burger.cpp" //leave this here or my compiler breaks
 using namespace std;
@@ -75,6 +77,11 @@ int find_highest_score() {
     inputFile.close();
     return highest_score;
 }
+
+
+
+
+
 int main() {
     
     initialize();
@@ -95,7 +102,7 @@ int main() {
                 playGame();
                 break;
             case 2:
-                newGame();
+                newGame();//would change to resume game
                 break;
             case 3:
                 cout << "Exiting the game.\n";
