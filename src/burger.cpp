@@ -1,5 +1,5 @@
 #include "burger.h"
-//using namespace std;
+using namespace std;
 Burger::Burger(int size) {
 
     // Initialize random seed
