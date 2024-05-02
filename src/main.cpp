@@ -53,12 +53,18 @@ void playGame() {
 
         cout << "\n1) Stack leftmost item from queue." << endl;
         cout << "2) Scroll" << endl;
-        cout << "\n0) Exit" << endl;
+        cout << "\n0) Finish" << endl;
         cout << "\nEnter choice: ";
         cin >> user_input;
 
         switch(user_input){
             case 0:
+                if(user_burger == order){
+                    cout << "\nYou Win!\n" << endl;
+                }
+                else{
+                    cout << "\nYou Lose.\n" << endl;
+                }
                 break;
             case 1:
                 user_burger.stack_item(bq.getFront());
