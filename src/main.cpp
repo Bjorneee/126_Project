@@ -8,6 +8,7 @@
 #include "burger.h"
 #include "burgerQueue.h"
 //#include "burger.cpp" //leave this here or my compiler breaks
+//#include "burgerQueue.cpp"// temp for standard run 
 using namespace std;
 
 map<int, string> ingredients;
@@ -90,45 +91,11 @@ void newGame() {
     // Functionality for starting a new game
     cout << "Starting a new game...\n";
 }
-void write_score(int score){//this both works indepndently and should work find just depends where you want to call it
-    ofstream outputFile("scores.txt", ios::app);//it currently creates a new scores.txt within the src I'll see if we can move it 
-    if (!outputFile.is_open()) {
-        cout << "Error opening file!" << endl;
-        return;
-    }
-    outputFile <<score<< ",";
-    outputFile.close();
-}
-
-int find_highest_score() {
-    ifstream inputFile("scores.txt");
-    if (!inputFile.is_open()) {
-        cout << "Error opening file!" << endl;
-        return -1; // Return -1 to indicate error
-    }
-
-    int highest_score = -1;
-    string line;
-    while (getline(inputFile, line)) {
-        stringstream ss(line);
-        string score_str;
-        while (getline(ss, score_str, ',')) {
-            int score = stoi(score_str);
-            highest_score = max(highest_score, score);
-        }
-    }
-    inputFile.close();
-    return highest_score;
-}
-
-
 
 
 
 int main() {
-    
     initialize();
-
     int choice;
     do {
         // Display menu options
