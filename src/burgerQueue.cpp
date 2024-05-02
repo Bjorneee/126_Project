@@ -60,3 +60,26 @@ void burgerQueue::scroll_to_next() {
     pop();
     push(rand_ingredient);
 }
+
+void burgerQueue::display(int index) const {
+
+    Node* temp = front;
+    while(index > 0){
+        temp = temp->next;
+        index--;
+    }
+    std::cout << ingredient_map.at(temp->val);
+}
+
+void burgerQueue::fill(const int n) {
+
+    for(int i = 0; i < n; i++){
+        int rand_ingredient = rand() % 6 + 2;
+        push(rand_ingredient);
+    }
+}
+
+int burgerQueue::getFront() const {
+
+    return front->val;
+}

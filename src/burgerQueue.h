@@ -3,6 +3,7 @@
 
 #include <ctime>
 #include <cstdlib>
+#include <iostream>
 #include <map>
 #include <string>
 
@@ -31,9 +32,13 @@ public:
 
     ~burgerQueue();
 
-    void display() const;
+    void display(int index) const;
 
     void scroll_to_next();
+
+    void fill(const int n);
+
+    int getFront() const;
 
 };
 

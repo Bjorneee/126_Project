@@ -42,7 +42,7 @@ void Burger::display(map<int, string>& ingredient_map){
 
         do{
             getline(ifs, input, '\n');
-        } while(input != ingredient_map[temp.top()] && !ifs.eof());
+        } while(input != ingredient_map.at(temp.top()) && !ifs.eof());
 
         getline(ifs, input, '$');
 
@@ -52,11 +52,20 @@ void Burger::display(map<int, string>& ingredient_map){
     }
 }
 
+void Burger::stack_item(const int& item) {
+
+    int temp = items.top();
+    items.pop();
+    items.push(item);
+    items.push(temp);
+}
+
 bool operator==(const Burger& comp1, const Burger& comp2) {
 
     return comp1.items == comp2.items;
 }
 
+/*
 //stack comapre idk if you want to user this
 bool Burger:: order_Issame() const {
         stack<int> items_copy = items;
@@ -76,3 +85,4 @@ bool Burger:: order_Issame() const {
 
         return true;
 };
+*/

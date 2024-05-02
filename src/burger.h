@@ -28,6 +28,8 @@ public:
     Burger(stack<int>& burgerStack);
 
     void display(map<int, string>& ingredients);
+
+    void stack_item(const int& item);
     
     friend bool operator==(const Burger& comp1, const Burger& comp2);
     
