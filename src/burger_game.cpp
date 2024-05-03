@@ -96,3 +96,12 @@ IT will be saved as player, score
 
     int score = getScoreFromFile(filename, playerName);
     */
+
+//set function to just set the user name
+void game_state::set_username(string username){
+    user_name = username;
+}
+
+void game_state::set_user_score(int userscore){
+    user_score = userscore;
+}

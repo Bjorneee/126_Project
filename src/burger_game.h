@@ -21,7 +21,8 @@ public:
     int find_highest_score();
     void saveScores(const unordered_map<string, int> &scores, const string &filename);
     int getScore(const string &playerName, const string &filename);
-
+    void set_username(string username);
+    void set_user_score(int userscore);
 
 };
 
