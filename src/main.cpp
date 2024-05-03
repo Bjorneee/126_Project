@@ -92,8 +92,6 @@ void newGame() {
     cout << "Starting a new game...\n";
 }
 
-
-
 int main() {
     initialize();
     int choice;
