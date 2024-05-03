@@ -18,7 +18,7 @@ class game_state{
     void write_score(int score);
     int find_highest_score();
     void saveScores(const unordered_map<string, int>& scores, const string& filename);
-    int getScore(const unordered_map<string, int>& scores, const string& playerName);
+    int getScore( const string& playerName,const string& filename);
 
 
 

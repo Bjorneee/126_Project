@@ -8,7 +8,7 @@ void game_state::write_score(int score){//this both works indepndently and shoul
         cout << "Error opening file!" << endl;
         return;
     }
-    outputFile <<score<< ",";
+    outputFile <<score<< ",";//deliminator
     outputFile.close();
 }
 
@@ -53,7 +53,7 @@ void game_state::saveScores(const unordered_map<string, int>& scores, const stri
     ofstream file(filename);
     if (file.is_open()) {
         for (const auto& entry : scores) {
-            file << entry.first << " " << entry.second << endl;
+            file << entry.first << "," << entry.second << endl;//deliminator
         }
         file.close();
         cout << "Scores saved to " << filename << " successfully." << endl;
@@ -62,12 +62,35 @@ void game_state::saveScores(const unordered_map<string, int>& scores, const stri
     }
 }
 
-int game_state::getScore(const unordered_map<string, int>& scores, const string& playerName) {
-    auto it = scores.find(playerName);
-    if (it != scores.end()) {
-        return it->second;
-    } else {
-        cerr << "Player " << playerName << " not found!" << endl;
-        return -1; // Return a negative value to indicate player not found
+int game_state::getScore(const string& filename, const string& playerName) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cerr << "Error opening file: " << filename << endl;
+        return -1;
     }
+    string line;
+    while (getline(file, line)) {
+        size_t pos = line.find(',');
+        if (pos != string::npos) {
+            string name = line.substr(0, pos);
+            if (name == playerName) {
+                int score = stoi(line.substr(pos + 1));
+                file.close();
+                return score;
+            }
+        }
+    }
+    cerr << "Player " << playerName << " not found in file: " << filename << endl;
+    file.close();
+    return -1; 
 }
+
+
+/*
+    USE CASE
+
+    string filename = "save_score.txt";
+    string playerName = "Player3"; // Example player name to search for
+
+    int score = getScoreFromFile(filename, playerName);
+    */

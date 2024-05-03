@@ -55,7 +55,7 @@ bool burgerQueue::empty() const {
 
 void burgerQueue::scroll_to_next() {
 
-    srand(time(nullptr));
+    srand(time(nullptr));// using same time seed?
     int rand_ingredient = rand() % 6 + 2;
     pop();
     push(rand_ingredient);
