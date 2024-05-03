@@ -16,14 +16,19 @@ class Burger {
 
     stack<int> items;//burger items
     map<int, string> ingredients;
+    int stack_size;
 
 public:
 
-    Burger(int size);
+    Burger(int n_size);
 
     void display(map<int, string>& ingredients);
 
     void stack_item(const int& item);
+
+    int size() const;
+
+    int get_go_next();
     
     friend bool operator==(const Burger& comp1, const Burger& comp2);
     

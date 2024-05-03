@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include "burger.h"
 #include "burgerQueue.h"
+#include "burger_ui.h"
 //#include "burger.cpp" //leave this here or my compiler breaks
 //#include "burgerQueue.cpp"// temp for standard run 
 using namespace std;
@@ -45,8 +46,10 @@ void playGame() {
         order.display(ingredients);
         //call game inputs    
 
-        cout << "\nYour burger:\n" << endl;
+        cout << "Your burger:\n" << endl;
         user_burger.display(ingredients);
+
+        //display_burgers(order, user_burger, ingredients);
 
         for(int i = 0; i < 3; i++){
             bq.display(i);
