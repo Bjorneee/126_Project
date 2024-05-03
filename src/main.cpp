@@ -95,8 +95,6 @@ void newGame() {
     cout << "Starting a new game...\n";
 }
 
-
-
 int main() {
     initialize();
     int choice;
@@ -104,7 +102,7 @@ int main() {
         // Display menu options
         cout << "\n=== Game Menu ===\n";
         cout << "1. Play Game\n";
-        cout << "2. New Game\n";//load game
+        cout << "2. New Game\n";//load game from preivous in save_score.txt
         cout << "3. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
