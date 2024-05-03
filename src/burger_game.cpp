@@ -33,6 +33,7 @@ int game_state::game_state::find_highest_score() {
     return highest_score;
 }
 
+
 /*HOW TO USE
 SAVE SCORE
 
@@ -87,6 +88,7 @@ int game_state::getScore(const string& filename, const string& playerName) {
 
 
 /*
+IT will be saved as player, score
     USE CASE
 
     string filename = "save_score.txt";
