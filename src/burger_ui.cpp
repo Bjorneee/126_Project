@@ -19,36 +19,92 @@ void display_burgers(const Burger& reference_burger, const Burger& user_burger, 
     Burger ref = reference_burger;
     Burger usr = user_burger;
 
-    while(ref.size() > usr.size()){
+    int ref_line_ct = ref.size() + 4;
+    int usr_line_ct = usr.size() + 4;
+
+    while(ref_line_ct > usr_line_ct){
+
+        safe_open(ascii_burger_txt, input_stream);
 
         int ref_item = ref.get_go_next();
 
+        // Get item
+        do{
+            getline(input_stream, current_line, '\n');
+        } while(current_line != ingredient_map.at(ref_item) && !input_stream.eof());
+
+        // Get ref line & print
+        if(current_line == "top_bun" || current_line == "bottom_bun"){
+            do{
+                getline(input_stream, current_line, '\n');
+                ref_line_ct--; // Decrement line count
+                if(current_line.back() == ascii_burger_delim){
+                    current_line.pop_back();
+                    std::cout << current_line << std::endl;
+                    break; // Stop at delim
+                }
+                std::cout << current_line << std::endl;
+            } while(current_line.back() != ascii_burger_delim && !input_stream.eof()); // Safety param, should stop from delim break
+        }
+        else{
+            
+            getline(input_stream, current_line, ascii_burger_delim);
+            std::cout << current_line << std::endl;
+            ref_line_ct--;
+
+        }
+
+        input_stream.close();
+
+    }
+    while(usr_line_ct > ref_line_ct){
+
         safe_open(ascii_burger_txt, input_stream);
+
+        int usr_item = usr.get_go_next();
+
+        // Get item
+        do{
+            getline(input_stream, current_line, '\n');
+        } while(current_line != ingredient_map.at(usr_item) && !input_stream.eof());
+
+        // Get ref line & print
+        if(current_line == "top_bun" || current_line == "bottom_bun"){
+            do{
+                getline(input_stream, current_line, '\n');
+                usr_line_ct--; // Decrement line count
+                if(current_line.back() == ascii_burger_delim){
+                    current_line.pop_back();
+                    std::cout << current_line << std::endl;
+                    break; // Stop at delim
+                }
+                std::cout << current_line << std::endl;
+            } while(current_line.back() != ascii_burger_delim && !input_stream.eof()); // Safety param, should stop from delim break
+        }
+        else{
+            
+            getline(input_stream, current_line, ascii_burger_delim);
+            std::cout << current_line << std::endl;
+            usr_line_ct--;
+
+        }
+
+        input_stream.close();
+
+    }
+    while(ref_line_ct == usr_line_ct){
+
+        safe_open(ascii_burger_txt, input_stream);
+
+        int ref_item = ref.get_go_next();
+        int usr_item = usr.get_go_next();
 
         do{
             getline(input_stream, current_line, '\n');
         } while(current_line != ingredient_map.at(ref_item) && !input_stream.eof());
 
-        getline(input_stream, current_line, ascii_burger_delim);
-
-        cout << current_line << endl;
-
-        input_stream.close();
-    }
-    while(ref.size() == usr.size() && ref.size() > 0){
-
-        int ref_item = ref.get_go_next();
-        int usr_item = usr.get_go_next();
-
-        bool sprite_end = false;
-
-        while(!sprite_end){
-
-            safe_open(ascii_burger_txt, input_stream);
+        if(current_line == "top_bun" || current_line == "bottom_bun"){
             
-            do{
-                getline(input_stream, current_line, '\n');
-            } while(current_line != ingredient_map.at(ref_item) && !input_stream.eof());
         }
 
     }

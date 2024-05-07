@@ -7,16 +7,14 @@
 #include <sstream>
 #include <stdlib.h>
 using namespace std;
-class game_state
-{
+class game_state {
+
 private:
-    unordered_map<string, int> scores;
     int user_score;
     string user_name;
 
-
-
 public:
+
     void write_score(int score);
     int find_highest_score();
     void saveScores(const unordered_map<string, int> &scores, const string &filename);

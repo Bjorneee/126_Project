@@ -8,11 +8,13 @@
 #include "burger.h"
 #include "burgerQueue.h"
 #include "burger_ui.h"
+#include "burger_game.h"
 //#include "burger.cpp" //leave this here or my compiler breaks
 //#include "burgerQueue.cpp"// temp for standard run 
 using namespace std;
 
 map<int, string> ingredients;
+unordered_map<string, int> scores;
 
 // initialize game assets
 void initialize() {
@@ -25,10 +27,23 @@ void initialize() {
                     {5, "onion"},
                     {6, "pickle"},
                     {7, "tomato"}};
+
+
+    /*
+    
+    Initialize scores map
+    
+    */
 }
 
-//temp calls
-void playGame() {
+void new_game() {
+
+    game_state n_game;
+    int user_score = 0;
+
+    string username;
+    cout << "\nEnter username: ";
+    getline(cin, username);
     
     srand(time(nullptr));
     int random_burgersize = rand() % 10 + 1;//How are we going to save score give me the var name some where so I know
@@ -67,6 +82,7 @@ void playGame() {
             case 0:
                 if(user_burger == order){
                     cout << "\nYou Win!\n" << endl;
+                    user_score++;
                 }
                 else{
                     cout << "\nYou Lose.\n" << endl;
@@ -84,15 +100,7 @@ void playGame() {
         }
 
     }
-}
-
-//temp calls
-void newGame() {
-
-    system("cls");
-
-    // Functionality for starting a new game
-    cout << "Starting a new game...\n";
+    
 }
 
 int main() {
@@ -101,8 +109,8 @@ int main() {
     do {
         // Display menu options
         cout << "\n=== Game Menu ===\n";
-        cout << "1. Play Game\n";
-        cout << "2. New Game\n";//load game from preivous in save_score.txt
+        cout << "1. New Game\n";
+        cout << "2. Load Game\n";
         cout << "3. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
@@ -110,10 +118,10 @@ int main() {
         // Process user choice
         switch (choice) {
             case 1:
-                playGame();
+                new_game();
                 break;
             case 2:
-                newGame();//would change to resume game
+                //newGame();//would change to resume game
                 break;
             case 3:
                 cout << "Exiting the game.\n";
