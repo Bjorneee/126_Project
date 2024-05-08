@@ -21,9 +21,9 @@ void Burger::display(map<int, string>& ingredient_map){
     stack<int> temp = items;
     while(!temp.empty()){
         
-        ifs.open("assets/asciiburger.txt");
+        ifs.open("assets\\asciiburger.txt");
         if(ifs.fail()){
-            ifs.open("../asciiburger.txt");
+            ifs.open("..\\assets\\asciiburger.txt");
             if(ifs.fail()){
                 std::cout << "\nFile open error." << std::endl;
                 exit(-1);

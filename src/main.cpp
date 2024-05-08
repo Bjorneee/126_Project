@@ -72,7 +72,7 @@ void new_game(map<int, string>& i_map, unordered_map<string, int>& s_map) {
 
     string username;
     cout << "\nEnter username: ";
-    getline(cin, username); // clear cache
+    //getline(cin, username); // clear cache trying using fflush
     getline(cin, username);
     
     new_game.set_user_score(0);
