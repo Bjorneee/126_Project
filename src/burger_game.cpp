@@ -13,10 +13,14 @@ void game_state::write_score(int score){//this both works indepndently and shoul
 }
 
 int game_state::find_highest_score() {
-    ifstream inputFile("..\\assets\\scores.txt");// ..\\assets\\scores.txt? originall ..\\scores.txt
-    if (!inputFile.is_open()) {
-        cout << "Error opening file!" << endl;
-        return -1; // Return -1 to indicate error
+    ifstream inputFile;
+    inputFile.open("assets\\scores.txt");
+    if (inputFile.fail()) {
+        inputFile.open("..\\assets\\scores.txt");
+        if(inputFile.fail()){
+            cerr << "Could not get highest score. File open error." << endl;
+            return -1;
+        }
     }
 
     int highest_score = -1;
@@ -132,8 +136,9 @@ void game_state::run_game(map<int, string>& ingredient_map, unordered_map<string
 
         system("cls"); // Clear terminal for every new game. Buggy in vscode terminal. Works when you run the .exe
 
-        cout << user_name << endl;
-        cout << user_score << endl;
+        cout << "\nUser: " << user_name << endl;
+        cout << "Score: " << user_score << endl;
+        //cout << "\nHighest score: " << find_highest_score() << endl; // ****************** Uncomment once you fix ******************
 
         cout << "\nBurger to make:\n" << endl;
         order.display(ingredient_map);

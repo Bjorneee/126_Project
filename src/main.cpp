@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "burger_ui.h"
 #include "burger_game.h"
 
@@ -29,6 +30,8 @@ int main() {
 
         cout << "Enter your choice: ";
         cin >> choice;
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         fflush(stdin);
 
@@ -72,7 +75,6 @@ void new_game(map<int, string>& i_map, unordered_map<string, int>& s_map) {
 
     string username;
     cout << "\nEnter username: ";
-    //getline(cin, username); // clear cache trying using fflush
     getline(cin, username);
     
     new_game.set_user_score(0);
@@ -94,12 +96,10 @@ void load_game(map<int, string>& i_map, unordered_map<string, int>& s_map) {
     string username;
     cout << "\nEnter username: ";
     getline(cin, username);
-    getline(cin, username);
 
-    cout << "\nUser score: " << load_game.getScore(score_file, username) << endl;
-    //int highest_score = load_game.find_highest_score();
-    //cout << "Highest Score: " << highest_score <<endl;
-    load_game.set_user_score(load_game.getScore(score_file, username));
+    int current_score = load_game.getScore(score_file, username);
+
+    load_game.set_user_score(current_score);
     load_game.set_username(username);
 
     load_game.run_game(i_map, s_map);

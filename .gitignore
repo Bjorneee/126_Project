@@ -1,4 +1,4 @@
 .vscode
 *.exe
 *.o
-scores.txt
+assets/scores.txt
