@@ -12,8 +12,8 @@ void game_state::write_score(int score){//this both works indepndently and shoul
     outputFile.close();
 }
 
-int game_state::game_state::find_highest_score() {
-    ifstream inputFile("..\\scores.txt");
+int game_state::find_highest_score() {
+    ifstream inputFile("..\\assets\\scores.txt");// ..\\assets\\scores.txt? originall ..\\scores.txt
     if (!inputFile.is_open()) {
         cout << "Error opening file!" << endl;
         return -1; // Return -1 to indicate error

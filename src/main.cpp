@@ -97,7 +97,8 @@ void load_game(map<int, string>& i_map, unordered_map<string, int>& s_map) {
     getline(cin, username);
 
     cout << "\nUser score: " << load_game.getScore(score_file, username) << endl;
-
+    //int highest_score = load_game.find_highest_score();
+    //cout << "Highest Score: " << highest_score <<endl;
     load_game.set_user_score(load_game.getScore(score_file, username));
     load_game.set_username(username);
 
