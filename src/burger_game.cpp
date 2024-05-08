@@ -51,23 +51,33 @@ if (playerScore != -1) {
 
 */
 void game_state::saveScores(const unordered_map<string, int>& scores, const string& filename) {
-    ofstream file(filename);
-    if (file.is_open()) {
+    ofstream file;
+    file.open(filename);
+    if(file.fail()) {
+        file.open("..\\assets\\scores.txt");
+        if(file.fail()){
+            cerr << "Could not save scores. Unable to open file: " << filename << endl;
+            exit(-1);
+        }
+    } 
+    else {
         for (const auto& entry : scores) {
             file << entry.first << "," << entry.second << endl;//deliminator
         }
         file.close();
         cout << "Scores saved to " << filename << " successfully." << endl;
-    } else {
-        cerr << "Unable to open file: " << filename << endl;
     }
 }
 
 int game_state::getScore(const string& filename, const string& playerName) {
-    ifstream file(filename);
-    if (!file.is_open()) {
-        cerr << "Error opening file: " << filename << endl;
-        return -1;
+    ifstream file;
+    file.open(filename);
+    if (file.fail()) {
+        file.open("..\\assets\\scores.txt");
+        if(file.fail()){
+            cerr << "Coult not get score. Error opening file: " << filename << endl;
+            exit(-1);
+        }
     }
     string line;
     while (getline(file, line)) {
@@ -104,4 +114,72 @@ void game_state::set_username(string username){
 
 void game_state::set_user_score(int userscore){
     user_score = userscore;
+}
+
+void game_state::run_game(map<int, string>& ingredient_map, unordered_map<string, int>& score_sheet) {
+
+    srand(time(nullptr));
+    int random_burgersize = rand() % 10 + 1;
+
+    Burger order(random_burgersize);
+    Burger user_burger(0);
+    
+    burgerQueue bq(ingredient_map);
+    bq.fill(3);
+
+    int user_input = 1;
+    while(user_input){
+
+        system("cls"); // Clear terminal for every new game. Buggy in vscode terminal. Works when you run the .exe
+
+        cout << user_name << endl;
+        cout << user_score << endl;
+
+        cout << "\nBurger to make:\n" << endl;
+        order.display(ingredient_map);
+        //call game inputs    
+
+        cout << "Your burger:\n" << endl;
+        user_burger.display(ingredient_map);
+
+        //display_burgers(order, user_burger, ingredient_map);
+
+        for(int i = 0; i < 3; i++){
+            bq.display(i);
+            cout << " | ";
+        }
+        cout << endl;
+
+        cout << "\n1) Stack leftmost item from queue." << endl;
+        cout << "2) Scroll" << endl;
+        cout << "\n0) Finish" << endl;
+        cout << "\nEnter choice: ";
+        cin >> user_input;
+
+        switch(user_input){
+            case 0:
+                if(user_burger == order){
+                    cout << "\nYou Win!\n" << endl;
+                    user_score++;
+                }
+                else{
+                    cout << "\nYou Lose.\n" << endl;
+                }
+                break;
+            case 1:
+                user_burger.stack_item(bq.getFront());
+                bq.scroll_to_next();
+                break;
+            case 2:
+                bq.scroll_to_next();
+                break;
+            default:
+                cout << "\nInvalid Input\n" << endl;
+        }
+
+    }
+
+    score_sheet[user_name] = user_score;
+    saveScores(score_sheet, "assets\\scores.txt");
+
 }

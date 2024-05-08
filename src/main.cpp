@@ -1,135 +1,130 @@
 #include <iostream>
-#include <stdlib.h>
-#include <map>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <unordered_map>
-#include "burger.h"
-#include "burgerQueue.h"
 #include "burger_ui.h"
 #include "burger_game.h"
-//#include "burger.cpp" //leave this here or my compiler breaks
-//#include "burgerQueue.cpp"// temp for standard run 
+
 using namespace std;
 
-map<int, string> ingredients;
-unordered_map<string, int> scores;
+const string score_file = "assets\\scores.txt";
 
-// initialize game assets
-void initialize() {
+void initialize(map<int, string>& i_map, unordered_map<string, int>& s_map);
+void new_game(map<int, string>& i_map, unordered_map<string, int>& s_map);
+void load_game(map<int, string>& i_map, unordered_map<string, int>& s_map);
+void load_scores(unordered_map<string, int>& s_map);
 
-    ingredients = { {0, "bottom_bun"},
-                    {1, "top_bun"},
-                    {2, "patty"},
-                    {3, "cheese"},
-                    {4, "lettuce"},
-                    {5, "onion"},
-                    {6, "pickle"},
-                    {7, "tomato"}};
+int main() {
 
+    map<int, string> ingredients;
+    unordered_map<string, int> scores;
 
-    /*
-    
-    Initialize scores map
-    
-    */
+    initialize(ingredients, scores);
+
+    int choice;
+    do {
+        // Display menu options
+        cout << "\n=== Game Menu ===\n" << endl;
+        cout << "1) New Game\n";
+        cout << "2) Load Game\n";
+
+        cout << "0) Exit\n";
+
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        fflush(stdin);
+
+        // Process user choice
+        switch (choice) {
+            case 0:
+                cout << "\nExiting the game..." << endl;
+                break;
+            case 1:
+                new_game(ingredients, scores);
+                break;
+            case 2:
+                load_game(ingredients, scores);
+                break;
+            default:
+                cout << "\nInvalid choice. Please try again.\n";
+        }
+    } while(choice);
+
+    return 0;
 }
 
-void new_game() {
+// initialize game assets
+void initialize(map<int, string>& i_map, unordered_map<string, int>& s_map) {
 
-    game_state n_game;
-    int user_score = 0;
+    i_map = { {0, "bottom_bun"},
+              {1, "top_bun"},
+              {2, "patty"},
+              {3, "cheese"},
+              {4, "lettuce"},
+              {5, "onion"},
+              {6, "pickle"},
+              {7, "tomato"}};
+
+    load_scores(s_map);
+}
+
+void new_game(map<int, string>& i_map, unordered_map<string, int>& s_map) {
+
+    game_state new_game;
+
+    string username;
+    cout << "\nEnter username: ";
+    getline(cin, username); // clear cache
+    getline(cin, username);
+    
+    new_game.set_user_score(0);
+    new_game.set_username(username);
+
+    new_game.run_game(i_map, s_map);
+    
+}
+
+void load_game(map<int, string>& i_map, unordered_map<string, int>& s_map) {
+
+    if(s_map.empty()){
+        cout << "\nNo saved games." << endl;
+        return;
+    }
+
+    game_state load_game;
 
     string username;
     cout << "\nEnter username: ";
     getline(cin, username);
-    
-    srand(time(nullptr));
-    int random_burgersize = rand() % 10 + 1;//How are we going to save score give me the var name some where so I know
-    Burger order(random_burgersize);
-    Burger user_burger(0);
-    burgerQueue bq(ingredients); // Burger Queue test
-    bq.fill(3);
+    getline(cin, username);
 
-    int user_input = 1;
-    while(user_input){
+    cout << "\nUser score: " << load_game.getScore(score_file, username) << endl;
 
-        system("cls"); // Clear terminal for every new game. Buggy in vscode terminal. Works when you run the .exe
+    load_game.set_user_score(load_game.getScore(score_file, username));
+    load_game.set_username(username);
 
-        cout << "\nBurger to make:\n" << endl;
-        order.display(ingredients);
-        //call game inputs    
+    load_game.run_game(i_map, s_map);
 
-        cout << "Your burger:\n" << endl;
-        user_burger.display(ingredients);
-
-        //display_burgers(order, user_burger, ingredients);
-
-        for(int i = 0; i < 3; i++){
-            bq.display(i);
-            cout << " | ";
-        }
-        cout << endl; // End Burger Queue test
-
-        cout << "\n1) Stack leftmost item from queue." << endl;
-        cout << "2) Scroll" << endl;
-        cout << "\n0) Finish" << endl;
-        cout << "\nEnter choice: ";
-        cin >> user_input;
-
-        switch(user_input){
-            case 0:
-                if(user_burger == order){
-                    cout << "\nYou Win!\n" << endl;
-                    user_score++;
-                }
-                else{
-                    cout << "\nYou Lose.\n" << endl;
-                }
-                break;
-            case 1:
-                user_burger.stack_item(bq.getFront());
-                bq.scroll_to_next();
-                break;
-            case 2:
-                bq.scroll_to_next();
-                break;
-            default:
-                cout << "\nInvalid Input\n" << endl;
-        }
-
-    }
-    
 }
 
-int main() {
-    initialize();
-    int choice;
-    do {
-        // Display menu options
-        cout << "\n=== Game Menu ===\n";
-        cout << "1. New Game\n";
-        cout << "2. Load Game\n";
-        cout << "3. Exit\n";
-        cout << "Enter your choice: ";
-        cin >> choice;
-        fflush(stdin);
-        // Process user choice
-        switch (choice) {
-            case 1:
-                new_game();
-                break;
-            case 2:
-                //newGame();//would change to resume game
-                break;
-            case 3:
-                cout << "Exiting the game.\n";
-                break;
-            default:
-                cout << "Invalid choice. Please try again.\n";
-        }
-    } while (choice != 3);
+void load_scores(unordered_map<string, int>& s_map) {
 
-    return 0;
+    ifstream ifs;
+    ifs.open(score_file);
+    if(ifs.fail()){
+        ifs.open("..\\assets\\scores.txt");
+        if(ifs.fail()){
+            cout << "\nUnable to load scores. File open failure." << endl;
+            exit(-1);
+        }
+    }
+    string line;
+    while(getline(ifs, line)){
+        size_t pos = line.find(',');
+        if(pos != string::npos){
+            string name = line.substr(0, pos);
+            int score = stoi(line.substr(pos + 1));
+            s_map[name] = score;
+        }
+    }
+    ifs.close();
+
 }
