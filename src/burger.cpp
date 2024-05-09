@@ -1,7 +1,9 @@
 #include "burger.h"
-using namespace std;
-Burger::Burger(int n_size) {
 
+using namespace std;
+
+Burger::Burger(int n_size) {
+{}
     stack_size = n_size + 2;
 
     // Initialize random seed

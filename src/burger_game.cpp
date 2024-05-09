@@ -69,7 +69,7 @@ void game_state::saveScores(const unordered_map<string, int>& scores, const stri
             file << entry.first << "," << entry.second << endl;//deliminator
         }
         file.close();
-        cout << "Scores saved to " << filename << " successfully." << endl;
+        //cout << "Scores saved to " << filename << " successfully." << endl;
     }
 }
 
@@ -123,13 +123,12 @@ void game_state::set_user_score(int userscore){
 void game_state::run_game(map<int, string>& ingredient_map, unordered_map<string, int>& score_sheet) {
 
     srand(time(nullptr));
-    int random_burgersize = rand() % 10 + 1;
 
-    Burger order(random_burgersize);
-    Burger user_burger(0);
-    
-    burgerQueue bq(ingredient_map);
-    bq.fill(3);
+    Burger* reference_burger_ptr;
+    Burger* user_burger_ptr;
+    burgerQueue* bq_ptr;
+
+    rand_burger_items(reference_burger_ptr, user_burger_ptr, bq_ptr, ingredient_map);
 
     int user_input = 1;
     while(user_input){
@@ -141,16 +140,16 @@ void game_state::run_game(map<int, string>& ingredient_map, unordered_map<string
         //cout << "\nHighest score: " << find_highest_score() << endl; // ****************** Uncomment once you fix ******************
 
         cout << "\nBurger to make:\n" << endl;
-        order.display(ingredient_map);
+        reference_burger_ptr->display(ingredient_map);
         //call game inputs    
 
         cout << "Your burger:\n" << endl;
-        user_burger.display(ingredient_map);
+        user_burger_ptr->display(ingredient_map);
 
         //display_burgers(order, user_burger, ingredient_map);
 
         for(int i = 0; i < 3; i++){
-            bq.display(i);
+            bq_ptr->display(i);
             cout << " | ";
         }
         cout << endl;
@@ -163,20 +162,28 @@ void game_state::run_game(map<int, string>& ingredient_map, unordered_map<string
 
         switch(user_input){
             case 0:
-                if(user_burger == order){
+                if(*user_burger_ptr == *reference_burger_ptr){
                     cout << "\nYou Win!\n" << endl;
                     user_score++;
                 }
                 else{
                     cout << "\nYou Lose.\n" << endl;
                 }
+                cout << "\nContinue? (1 - Yes | 0 - No): ";
+                cin >> user_input;
+                if(user_input){
+                    delete reference_burger_ptr;
+                    delete user_burger_ptr;
+                    delete bq_ptr;
+                    rand_burger_items(reference_burger_ptr, user_burger_ptr, bq_ptr, ingredient_map);
+                }
                 break;
             case 1:
-                user_burger.stack_item(bq.getFront());
-                bq.scroll_to_next();
+                user_burger_ptr->stack_item(bq_ptr->getFront());
+                bq_ptr->scroll_to_next();
                 break;
             case 2:
-                bq.scroll_to_next();
+                bq_ptr->scroll_to_next();
                 break;
             default:
                 cout << "\nInvalid Input\n" << endl;
@@ -184,7 +191,20 @@ void game_state::run_game(map<int, string>& ingredient_map, unordered_map<string
 
     }
 
+    cout << "\nFinal score: " << user_score << endl;
     score_sheet[user_name] = user_score;
     saveScores(score_sheet, "assets\\scores.txt");
 
+    delete reference_burger_ptr;
+    delete user_burger_ptr;
+    delete bq_ptr;
+
+}
+
+void game_state::rand_burger_items(Burger*& ref, Burger*& usr, burgerQueue*& bq, map<int, string>& ingredient_map) {
+
+    ref = new Burger(rand() % 10 + 1);
+    usr = new Burger(0);
+    bq = new burgerQueue(ingredient_map);
+    bq->fill(3);
 }

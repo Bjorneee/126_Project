@@ -14,8 +14,7 @@ using namespace std;
 
 class Burger {
 
-    stack<int> items;//burger items
-    map<int, string> ingredients;
+    stack<int> items;
     int stack_size;
 
 public:

@@ -26,6 +26,7 @@ public:
     void set_username(string username);
     void set_user_score(int userscore);
     void run_game(map<int, string>& ingredient_map, unordered_map<string, int>& score_sheet);
+    void rand_burger_items(Burger*& ref, Burger*& usr, burgerQueue*& bq, map<int, string>& ingredient_map);
 
 };
 

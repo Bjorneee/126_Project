@@ -11,6 +11,7 @@ void initialize(map<int, string>& i_map, unordered_map<string, int>& s_map);
 void new_game(map<int, string>& i_map, unordered_map<string, int>& s_map);
 void load_game(map<int, string>& i_map, unordered_map<string, int>& s_map);
 void load_scores(unordered_map<string, int>& s_map);
+void clr_buffer();
 
 int main() {
 
@@ -31,9 +32,7 @@ int main() {
         cout << "Enter your choice: ";
         cin >> choice;
 
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-        fflush(stdin);
+        clr_buffer();
 
         // Process user choice
         switch (choice) {
@@ -99,6 +98,11 @@ void load_game(map<int, string>& i_map, unordered_map<string, int>& s_map) {
 
     int current_score = load_game.getScore(score_file, username);
 
+    if(current_score < 0){
+        cout << "\nNo save game with that name exists!" << endl;
+        return;
+    }
+
     load_game.set_user_score(current_score);
     load_game.set_username(username);
 
@@ -128,4 +132,10 @@ void load_scores(unordered_map<string, int>& s_map) {
     }
     ifs.close();
 
+}
+
+void clr_buffer() {
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    fflush(stdin);
 }
