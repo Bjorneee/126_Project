@@ -3,7 +3,7 @@ using namespace std;
 
 
 void game_state::write_score(int score){//this both works indepndently and should work find just depends where you want to call it
-    ofstream outputFile("scores.txt", ios::app);//it currently creates a new scores.txt within the src I'll see if we can move it 
+    ofstream outputFile("scores.txt", ios::app);
     if (!outputFile.is_open()) {
         cout << "Error opening file!" << endl;
         return;
